@@ -2,12 +2,13 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import Branch_Router from "./routes/Branch_Route.js";
+import "dotenv/config";
 import City_Router from "./routes/CityManager_Route.js";
-const PORT = 3000;
-const MONGO_URL =
-  "mongodb+srv://talhanoormalik0321b:saylani@cluster0.09gmglr.mongodb.net/";
+import mealRouter from "./routes/meal.js";
+
+const PORT = 4000
 mongoose
-  .connect(MONGO_URL)
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("Database connected");
   })
@@ -20,6 +21,8 @@ app.use(cors());
  
 app.use("/branch", Branch_Router);
 app.use("/city-manger", City_Router )
+app.use("/meal",mealRouter)
+app.use("/", City_Router )
 
 app.get("/",(req,res)=>{
     res.send("Hello World");
